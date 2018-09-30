@@ -10,17 +10,19 @@
     <script src="js/leaflet.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.bundle.js"></script>
-
+    <script src="https://unpkg.com/leaflet" type="text/javascript"></script>
+    <script src="https://unpkg.com/leaflet-ant-path" type="text/javascript"></script>
+      
 </head>
 <body>
 
 <div id="lmap"></div>
 <script>
-    var map = L.map('lmap').setView([39, 116], 5);
+    var map = L.map('map').setView([0, 0], 13);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+   attribution: "&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors"
+   }).addTo(map);
     const path = L.polyline.antPath(route,
     {"delay":400,"dashArray":[10,20],"weight":5,"color":"#0000FF","pulseColor":"#FFFFFF","paused":false,"reverse":false}
     );

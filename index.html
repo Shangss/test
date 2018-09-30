@@ -25,6 +25,11 @@
     L.marker([39, 116]).addTo(map)
         .bindPopup('Hello, FlowMap !')
         .openPopup();
+    const path = L.polyline.antPath(route,
+    {"delay":400,"dashArray":[10,20],"weight":5,"color":"#0000FF","pulseColor":"#FFFFFF","paused":false,"reverse":false}
+    );
+    myMap.addLayer(path);
+    myMap.fitBounds(path.getBounds())
 </script>
 </body>
 </html>

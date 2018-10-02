@@ -36,6 +36,17 @@ var marker = L.movingMarker([37.809185, -122.477351], {
     ],
 });
 marker.addTo(map);
+var icon = new RotatingIcon();
+var marker = L.movingMarker(startLatLng, {
+    destination: myDestinations,
+    icon: icon,
+});   
+marker.on('start', function() {
+    icon.rotate(startingRotation);
+});
+marker.on('destination', function(destination) {
+    icon.rotate(destination.rotation);
+});   
 </script>
 </body>
 </html>

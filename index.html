@@ -15,45 +15,18 @@
       
 </head>
 <body>
-
 <div id="lmap"></div>
 <script>
-  document.addEventListener("DOMContentLoaded", () => { 
-  loadRoute().then(decodeRoute).then(route => {
-    const map = mapFactory();
-    const {antPath} = L.polyline;
- 
-    let paused = true;
-    let path = antPath(route, {paused});
-    path.addTo(map);
-    map.fitBounds(path.getBounds());
-    
-    setInterval(() => path.resume(), 1000);
-    setInterval(() => path.pause(), 2000);
-    
-  })
-});
+ var map = L.map('lmap').setView([39, 116], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+ const path = L.polyline.antPath(route,
+  {"delay":400,"dashArray":[10,20],"weight":5,"color":"#0000FF","pulseColor":"#FFFFFF","paused":false,"reverse":false}
+    );
+myMap.addLayer(path);
+myMap.fitBounds(path.getBounds())
 
-//Some utils functions
-function loadRoute() {
-  return new Promise(
-    (resolve, reject) => $.getJSON('https://codepen.io/rubenspgcavalcante/pen/MvdpeV.js', resolve)
-  )
-}
-
-function decodeRoute(googleRoute) {
-  return L.PolylineUtil.decode(googleRoute.routes[0].overview_polyline.points, 5);
-}
-
-function mapFactory() {
-  const map = L.map('map').setView([0, 0], 13);
-  
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-  
-  return map;
-}
 </script>
 </body>
 </html>

@@ -36,7 +36,18 @@ var marker = L.movingMarker([37.809185, -122.477351], {
     ],
 });
 marker.addTo(map);
-marker.start();
+var RotatingIcon = L.DivIcon.extend({
+    createIcon: function() {
+        // outerDiv.style.transform is updated by Leaflet
+        var outerDiv = document.createElement('div');
+        this.div = document.createElement('div');
+        outerDiv.appendChild(this.div);
+        return outerDiv;
+    },
+    rotate(deg) {
+        this.div.style.transform = 'rotate(' + deg + 'deg)';
+    },
+});
 var icon = new RotatingIcon();
 var marker = L.movingMarker(startLatLng, {
     destination: myDestinations,
